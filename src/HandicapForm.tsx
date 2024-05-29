@@ -8,9 +8,10 @@ const HandicapForm = () => {
     player4: "",
   });
   const [error, setError] = useState("");
-  const [strokesAwarded, setStrokesAwarded] = useState(null);
+  const [strokesAwarded, setStrokesAwarded] = useState<number | null>(null);
 
-  const handleChange = (e) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setHandicaps({ ...handicaps, [name]: value });
   };
@@ -61,7 +62,7 @@ const HandicapForm = () => {
 
     const adjustedPlayingHandicap = playingHandicap * 0.75;
 
-    setStrokesAwarded(adjustedPlayingHandicap.toFixed(1));
+    setStrokesAwarded(Number(adjustedPlayingHandicap.toFixed(1)));
   };
 
   return (
@@ -83,6 +84,7 @@ const HandicapForm = () => {
               <input
                 type="number"
                 name={player}
+                // @ts-expect-error abc
                 value={handicaps[player]}
                 onChange={handleChange}
                 className="input input-bordered w-full"
